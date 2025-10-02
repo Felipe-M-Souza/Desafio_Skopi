@@ -16,6 +16,19 @@ services:
     networks:
       - taskmanagement-network
 
+  taskmanagement-frontend:
+    build:
+      context: ./TaskManagementFrontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - taskmanagement-api
+    networks:
+      - taskmanagement-network
+
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
