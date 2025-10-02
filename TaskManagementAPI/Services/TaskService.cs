@@ -104,6 +104,7 @@ namespace TaskManagementAPI.Services
             var initialComment = new TaskHistory
             {
                 Comment = $"Tarefa criada com prioridade {createTaskDto.Priority}",
+                Status = "Created",
                 TaskId = task.Id,
                 UserId = createTaskDto.UserId,
                 CreatedAt = DateTime.UtcNow

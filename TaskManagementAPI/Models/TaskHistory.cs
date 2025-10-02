@@ -10,6 +10,9 @@ namespace TaskManagementAPI.Models
         [StringLength(2000)]
         public string Comment { get; set; } = string.Empty;
         
+        [Required]
+        public string Status { get; set; } = "Created";
+        
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         
         // Foreign Keys

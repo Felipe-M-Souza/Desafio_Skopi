@@ -45,6 +45,11 @@ namespace TaskManagementAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<TaskResponseDto>> CreateTask(CreateTaskDto createTaskDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 // Check if project can accept more tasks
