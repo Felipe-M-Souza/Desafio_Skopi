@@ -21,7 +21,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-50">
         {currentUser ? (
-          <Layout currentUser={currentUser} onLogout={() => setCurrentUser(null)} children={undefined}>
+          <Layout currentUser={currentUser} onLogout={() => setCurrentUser(null)}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/projects" element={<Projects />} />
