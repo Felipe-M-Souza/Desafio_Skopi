@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
+import { User } from './types';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
@@ -8,11 +9,12 @@ import Reports from './pages/Reports';
 import Login from './pages/Login';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({
+  const [currentUser, setCurrentUser] = useState<User | null>({
     id: 1,
     name: 'João Silva',
     email: 'joao@email.com',
-    role: 'Manager' as const
+    role: 'Manager',
+    createdAt: new Date().toISOString()
   });
 
   return (

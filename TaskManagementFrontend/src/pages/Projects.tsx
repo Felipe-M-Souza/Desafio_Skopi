@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Eye, Calendar } from 'lucide-react';
+import { Plus, Edit, Trash2, Calendar } from 'lucide-react';
 import { projectsApi } from '../services/api';
 import { Project, CreateProjectDto } from '../types';
 

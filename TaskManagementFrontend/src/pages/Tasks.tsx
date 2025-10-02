@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, MessageSquare, Calendar, Flag } from 'lucide-react';
 import { tasksApi, projectsApi } from '../services/api';
-import { Task, Project, CreateTaskDto, UpdateTaskDto, AddTaskCommentDto } from '../types';
+import { Task, Project, CreateTaskDto, AddTaskCommentDto } from '../types';
 
 const Tasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -10,7 +10,6 @@ const Tasks = () => {
   const [showModal, setShowModal] = useState(false);
   const [showCommentModal, setShowCommentModal] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [formData, setFormData] = useState<CreateTaskDto>({
     title: '',
     description: '',

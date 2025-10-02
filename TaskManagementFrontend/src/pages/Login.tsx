@@ -17,7 +17,8 @@ const Login = ({ onLogin }: LoginProps) => {
       id: 1,
       name: 'João Silva',
       email: email,
-      role: 'Manager'
+      role: 'Manager',
+      createdAt: new Date().toISOString()
     };
     onLogin(user);
   };
