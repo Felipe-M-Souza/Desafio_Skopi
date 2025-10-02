@@ -47,8 +47,6 @@ namespace TaskManagementAPI.Data
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Title).IsRequired().HasMaxLength(300);
                 entity.Property(e => e.Description).HasMaxLength(2000);
-                entity.Property(e => e.Status).HasConversion<int>();
-                entity.Property(e => e.Priority).HasConversion<int>();
 
                 entity
                     .HasOne(e => e.Project)

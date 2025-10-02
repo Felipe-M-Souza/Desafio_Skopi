@@ -13,7 +13,7 @@ namespace TaskManagementAPI.DTOs
         public string? Description { get; set; }
         
         [Required]
-        public TaskPriority Priority { get; set; }
+        public string Priority { get; set; } = "Medium";
         
         public DateTime? DueDate { get; set; }
         
@@ -34,7 +34,7 @@ namespace TaskManagementAPI.DTOs
         public string? Description { get; set; }
         
         [Required]
-        public Models.TaskStatus Status { get; set; }
+        public string Status { get; set; } = "Pending";
         
         public DateTime? DueDate { get; set; }
     }
@@ -44,8 +44,8 @@ namespace TaskManagementAPI.DTOs
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string? Description { get; set; }
-        public Models.TaskStatus Status { get; set; }
-        public TaskPriority Priority { get; set; }
+        public string Status { get; set; } = string.Empty;
+        public string Priority { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DueDate { get; set; }

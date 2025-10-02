@@ -28,9 +28,9 @@ namespace TaskManagementAPI.Models
         [StringLength(2000)]
         public string? Description { get; set; }
         
-        public TaskStatus Status { get; set; } = TaskStatus.Pending;
+        public string Status { get; set; } = "Pending";
         
-        public TaskPriority Priority { get; set; } = TaskPriority.Medium;
+        public string Priority { get; set; } = "Medium";
         
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         
