@@ -1,0 +1,52 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.dll
+*.pdb
+*.exe
+*.log
+
+# Visual Studio
+.vs/
+*.userprefs
+*.sln.docstates
+
+# Docker
+.dockerignore
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Cursor
+.cursor/
+
+# Test results
+TestResults/
+coverage/
+
+# NuGet
+packages/
+*.nupkg
+
+# Entity Framework
+Migrations/
+*.Designer.cs
+*.ModelSnapshot.cs
