@@ -15,7 +15,7 @@ const Login = ({ onLogin }: LoginProps) => {
     // Simulação de login - em produção, isso seria uma chamada à API
     const user: UserType = {
       id: 1,
-      name: 'João Silva',
+      name: 'Felipe de Melo Souza',
       email: email,
       role: 'Manager',
       createdAt: new Date().toISOString()

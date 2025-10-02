@@ -117,10 +117,10 @@ dotnet test --collect:"XPlat Code Coverage"
 ```json
 {
   "id": 1,
-  "name": "João Silva",
-  "email": "joao@email.com",
+  "name": "Felipe de Melo Souza",
+  "email": "felip-nho@hotmail.com",
   "role": "User",
-  "createdAt": "2024-01-01T00:00:00Z"
+  "createdAt": "2025-10-02T00:00:00Z"
 }
 ```
 
@@ -130,10 +130,10 @@ dotnet test --collect:"XPlat Code Coverage"
   "id": 1,
   "name": "Projeto Exemplo",
   "description": "Descrição do projeto",
-  "createdAt": "2024-01-01T00:00:00Z",
+  "createdAt": "2025-10-02T00:00:00Z",
   "updatedAt": null,
   "userId": 1,
-  "userName": "João Silva",
+  "userName": "Felipe de Melo Souza",
   "taskCount": 5
 }
 ```

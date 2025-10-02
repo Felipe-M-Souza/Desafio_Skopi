@@ -11,8 +11,8 @@ import Login from './pages/Login';
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>({
     id: 1,
-    name: 'João Silva',
-    email: 'joao@email.com',
+    name: 'Felipe de Melo Souza',
+    email: 'felip-nho@hotmail.com',
     role: 'Manager',
     createdAt: new Date().toISOString()
   });
@@ -21,7 +21,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-50">
         {currentUser ? (
-          <Layout currentUser={currentUser} onLogout={() => setCurrentUser(null)}>
+          <Layout currentUser={currentUser} onLogout={() => setCurrentUser(null)} children={undefined}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/projects" element={<Projects />} />
