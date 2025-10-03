@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, MessageSquare, Calendar, Flag } from 'lucide-react';
 import { tasksApi, projectsApi } from '../services/api';
-import { Task, Project, CreateTaskDto, AddTaskCommentDto } from '../types';
+import { Task, Project, CreateTaskDto, AddTaskCommentDto, TaskStatus } from '../types';
 
 const Tasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -22,6 +22,8 @@ const Tasks = () => {
     comment: '',
     userId: 1
   });
+  const [showWarning, setShowWarning] = useState(false);
+  const [warningMessage, setWarningMessage] = useState('');
 
   useEffect(() => {
     fetchData();
@@ -29,13 +31,25 @@ const Tasks = () => {
 
   const fetchData = async () => {
     try {
-      const [projectsResponse, tasksResponse] = await Promise.all([
-        projectsApi.getUserProjects(1),
-        tasksApi.getProjectTasks(1, 1)
-      ]);
+      console.log('Carregando projetos e tarefas...');
+      const projectsResponse = await projectsApi.getUserProjects(1);
+      console.log('Projetos carregados:', projectsResponse.data);
       
       setProjects(projectsResponse.data);
-      setTasks(tasksResponse.data);
+      
+      // Buscar tarefas de todos os projetos
+      const allTasks: Task[] = [];
+      for (const project of projectsResponse.data) {
+        try {
+          const tasksResponse = await tasksApi.getProjectTasks(project.id, 1);
+          allTasks.push(...tasksResponse.data);
+        } catch (error) {
+          console.error(`Erro ao carregar tarefas do projeto ${project.id}:`, error);
+        }
+      }
+      
+      console.log('Tarefas carregadas:', allTasks);
+      setTasks(allTasks);
     } catch (error) {
       console.error('Erro ao carregar dados:', error);
     } finally {
@@ -61,8 +75,17 @@ const Tasks = () => {
       setEditingTask(null);
       setFormData({ title: '', description: '', priority: 'Medium', dueDate: '', projectId: 0, userId: 1 });
       fetchData();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao salvar tarefa:', error);
+      
+      // Verificar se é erro de limite de tarefas
+      if (error.response?.data?.includes('limite máximo de 20 tarefas')) {
+        setWarningMessage('Este projeto já atingiu o limite máximo de 20 tarefas. Não é possível adicionar mais tarefas.');
+        setShowWarning(true);
+      } else {
+        setWarningMessage('Erro ao salvar tarefa. Tente novamente.');
+        setShowWarning(true);
+      }
     }
   };
 
@@ -101,6 +124,20 @@ const Tasks = () => {
       } catch (error) {
         console.error('Erro ao excluir tarefa:', error);
       }
+    }
+  };
+
+  const handleStatusChange = async (taskId: number, newStatus: string) => {
+    try {
+      await tasksApi.updateTask(taskId, 1, {
+        title: tasks.find(t => t.id === taskId)?.title || '',
+        description: tasks.find(t => t.id === taskId)?.description || '',
+        status: newStatus as TaskStatus,
+        dueDate: tasks.find(t => t.id === taskId)?.dueDate || ''
+      });
+      fetchData();
+    } catch (error) {
+      console.error('Erro ao atualizar status da tarefa:', error);
     }
   };
 
@@ -162,7 +199,17 @@ const Tasks = () => {
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-lg font-semibold text-gray-900">{task.title}</h3>
-                  <div className="flex space-x-2">
+                  <div className="flex items-center space-x-2">
+                    <select
+                      value={task.status}
+                      onChange={(e) => handleStatusChange(task.id, e.target.value)}
+                      className="text-sm border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="Pending">Pendente</option>
+                      <option value="InProgress">Em Progresso</option>
+                      <option value="Completed">Concluída</option>
+                      <option value="Cancelled">Cancelada</option>
+                    </select>
                     <button
                       onClick={() => handleAddCommentClick(task)}
                       className="p-1 text-gray-400 hover:text-blue-600"
@@ -285,12 +332,25 @@ const Tasks = () => {
                   <select
                     className="input"
                     value={formData.priority}
-                    onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
+                    onChange={(e) => {
+                      if (editingTask && e.target.value !== editingTask.priority) {
+                        setWarningMessage('Não é permitido alterar a prioridade de uma tarefa após sua criação.');
+                        setShowWarning(true);
+                        return;
+                      }
+                      setFormData({ ...formData, priority: e.target.value as any });
+                    }}
+                    disabled={editingTask ? true : false}
                   >
                     <option value="Low">Baixa</option>
                     <option value="Medium">Média</option>
                     <option value="High">Alta</option>
                   </select>
+                  {editingTask && (
+                    <p className="text-xs text-gray-500 mt-1">
+                      A prioridade não pode ser alterada após a criação da tarefa
+                    </p>
+                  )}
                 </div>
                 
                 <div>
@@ -356,6 +416,35 @@ const Tasks = () => {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Warning Modal */}
+      {showWarning && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div className="mt-3">
+              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100">
+                <svg className="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
+              <div className="mt-2 text-center">
+                <h3 className="text-lg font-medium text-gray-900">Aviso</h3>
+                <div className="mt-2 px-7 py-3">
+                  <p className="text-sm text-gray-500">{warningMessage}</p>
+                </div>
+                <div className="flex justify-center mt-4">
+                  <button
+                    onClick={() => setShowWarning(false)}
+                    className="btn btn-primary"
+                  >
+                    Entendi
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

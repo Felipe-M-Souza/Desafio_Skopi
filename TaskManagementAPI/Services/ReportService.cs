@@ -23,13 +23,12 @@ namespace TaskManagementAPI.Services
             var thirtyDaysAgo = DateTime.UtcNow.AddDays(-30);
             
             var report = await _context.Users
-                .Where(u => u.Role == "User") // Only regular users, not managers
                 .Select(u => new UserTaskReportDto
                 {
                     UserId = u.Id,
                     UserName = u.Name,
                     UserEmail = u.Email,
-                    TotalCompletedTasks = u.Tasks.Count(t => t.Status == Models.TaskStatus.Completed && t.UpdatedAt >= thirtyDaysAgo),
+                    TotalCompletedTasks = u.Tasks.Count(t => t.Status == "Completed" && t.UpdatedAt >= thirtyDaysAgo),
                     ReportDate = DateTime.UtcNow
                 })
                 .ToListAsync();

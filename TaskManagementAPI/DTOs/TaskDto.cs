@@ -36,6 +36,8 @@ namespace TaskManagementAPI.DTOs
         [Required]
         public string Status { get; set; } = "Pending";
         
+        public string? Priority { get; set; }
+        
         public DateTime? DueDate { get; set; }
     }
     

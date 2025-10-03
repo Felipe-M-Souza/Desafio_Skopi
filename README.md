@@ -215,6 +215,91 @@ O projeto inclui testes unitários para os principais serviços:
 
 ---
 
+## 📌 Fase 2 – Refinamento (Perguntas ao PO)
+
+### Questões sobre Funcionalidades Futuras
+
+1. **Deseja suporte a subtarefas dentro de uma tarefa?**
+   - Implementação de hierarquia de tarefas
+   - Controle de dependências entre subtarefas
+   - Relatórios considerando subtarefas
+
+2. **As prioridades devem ser apenas baixa/média/alta ou podemos parametrizar?**
+   - Sistema de prioridades customizáveis
+   - Cores e níveis configuráveis por organização
+   - Impacto nos relatórios e dashboards
+
+3. **Precisamos implementar notificações (e-mail, push, etc.) quando uma tarefa for atualizada?**
+   - Sistema de notificações em tempo real
+   - Integração com email corporativo
+   - Notificações push para mobile/web
+
+4. **Haverá necessidade de exportação de relatórios (PDF, Excel)?**
+   - Geração automática de relatórios
+   - Agendamento de relatórios periódicos
+   - Templates customizáveis
+
+5. **O controle de usuários/roles (ex: gerente) será feito por outro serviço externo ou devemos evoluir para autenticação interna?**
+   - Integração com Active Directory
+   - Sistema de autenticação próprio
+   - Controle de permissões granular
+
+6. **Deseja integração com calendário (Google/Outlook) para sincronizar prazos?**
+   - Sincronização bidirecional
+   - Lembretes automáticos
+   - Bloqueio de horários
+
+---
+
+## 📌 Fase 3 – Melhorias Futuras
+
+### Autenticação e Autorização
+- **Implementar JWT + Identity** para controle de usuários
+- Sistema de roles e permissões granular
+- Integração com Active Directory/LDAP
+- Multi-factor authentication (MFA)
+
+### Padrões de Projeto
+- **Uso de CQRS + MediatR** para melhor organização de casos de uso
+- Separação clara entre comandos e queries
+- Implementação de Domain Events
+- Clean Architecture com camadas bem definidas
+
+### Mensageria
+- **Uso de RabbitMQ/Kafka** para notificação de alterações em tarefas
+- Processamento assíncrono de operações pesadas
+- Event-driven architecture
+- Dead letter queues para tratamento de erros
+
+### Cache
+- **Redis para melhorar performance** em relatórios
+- Cache distribuído para sessões
+- Cache de consultas frequentes
+- Invalidação inteligente de cache
+
+### Escalabilidade/Cloud
+- **Deploy em Kubernetes** ou Azure App Service
+- Banco em Azure SQL/Postgres
+- Auto-scaling baseado em métricas
+- Load balancing e health checks
+
+### Observabilidade
+- **Logging estruturado com Serilog** + métricas Prometheus/Grafana
+- APM (Application Performance Monitoring)
+- Alertas proativos para problemas
+- Dashboards de monitoramento em tempo real
+
+### Funcionalidades Avançadas
+- **Real-time Updates** com SignalR
+- **Busca Avançada** com Elasticsearch
+- **Machine Learning** para predição de prazos
+- **Integração com calendários** (Google/Outlook)
+- **Exportação de relatórios** (PDF, Excel)
+- **Subtarefas e dependências**
+- **Notificações push** e email
+
+---
+
 ## 🤝 Contribuição
 
 1. Fork o projeto

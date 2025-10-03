@@ -4,7 +4,6 @@ import {
   CheckSquare, 
   Clock, 
   TrendingUp,
-  Plus,
   Eye
 } from 'lucide-react';
 import { projectsApi, tasksApi } from '../services/api';
@@ -105,10 +104,6 @@ const Dashboard = () => {
         <div className="card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-medium text-gray-900">Projetos Recentes</h3>
-            <button className="btn btn-primary text-sm">
-              <Plus className="h-4 w-4 mr-1" />
-              Novo Projeto
-            </button>
           </div>
           <div className="space-y-3">
             {projects.slice(0, 3).map((project) => (
@@ -129,10 +124,6 @@ const Dashboard = () => {
         <div className="card">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-medium text-gray-900">Tarefas Recentes</h3>
-            <button className="btn btn-primary text-sm">
-              <Plus className="h-4 w-4 mr-1" />
-              Nova Tarefa
-            </button>
           </div>
           <div className="space-y-3">
             {recentTasks.map((task) => (

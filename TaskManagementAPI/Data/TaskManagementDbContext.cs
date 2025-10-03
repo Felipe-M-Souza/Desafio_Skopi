@@ -66,6 +66,7 @@ namespace TaskManagementAPI.Data
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Comment).IsRequired().HasMaxLength(2000);
+                entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
 
                 entity
                     .HasOne(e => e.Task)

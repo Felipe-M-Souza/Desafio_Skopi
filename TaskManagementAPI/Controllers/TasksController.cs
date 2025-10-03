@@ -52,14 +52,13 @@ namespace TaskManagementAPI.Controllers
 
             try
             {
-                // Check if project can accept more tasks
-                var canCreate = await _taskService.CanCreateTaskAsync(createTaskDto.ProjectId);
-                if (!canCreate)
-                    return BadRequest("Limite máximo de 20 tarefas por projeto atingido");
-                
                 var task = await _taskService.CreateTaskAsync(createTaskDto);
                 return CreatedAtAction(nameof(GetTask), 
                     new { taskId = task.Id, userId = task.UserId }, task);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -81,6 +80,10 @@ namespace TaskManagementAPI.Controllers
                     return NotFound("Tarefa não encontrada");
                     
                 return Ok(task);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

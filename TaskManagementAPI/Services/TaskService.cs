@@ -86,6 +86,10 @@ namespace TaskManagementAPI.Services
         
         public async Task<TaskResponseDto> CreateTaskAsync(CreateTaskDto createTaskDto)
         {
+            // Check if project has reached the 20 task limit
+            if (!await CanCreateTaskAsync(createTaskDto.ProjectId))
+                throw new InvalidOperationException("Projeto atingiu o limite máximo de 20 tarefas");
+            
             var task = new Models.Task
             {
                 Title = createTaskDto.Title,
@@ -127,6 +131,11 @@ namespace TaskManagementAPI.Services
             var oldStatus = task.Status;
             var oldTitle = task.Title;
             var oldDescription = task.Description;
+            var oldPriority = task.Priority;
+            
+            // Check if priority is being changed (not allowed)
+            if (updateTaskDto.Priority != null && updateTaskDto.Priority != oldPriority)
+                throw new InvalidOperationException("Não é permitido alterar a prioridade de uma tarefa após sua criação");
             
             task.Title = updateTaskDto.Title;
             task.Description = updateTaskDto.Description;

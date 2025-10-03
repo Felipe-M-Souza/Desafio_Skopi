@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BarChart3, TrendingUp, Users, CheckCircle } from 'lucide-react';
 import { reportsApi } from '../services/api';
 import { UserTaskReport } from '../types';
+import ProductivityChart from '../components/ProductivityChart';
 
 const Reports = () => {
   const [reports, setReports] = useState<UserTaskReport[]>([]);
@@ -187,20 +188,13 @@ const Reports = () => {
         </div>
       </div>
 
-      {/* Chart Placeholder */}
+      {/* Productivity Chart */}
       <div className="card">
         <div className="px-4 py-5 sm:p-6">
           <h3 className="text-lg font-medium text-gray-900 mb-4">
             Gráfico de Produtividade
           </h3>
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <BarChart3 className="mx-auto h-12 w-12 text-gray-400" />
-              <p className="mt-2 text-sm text-gray-500">
-                Gráfico de produtividade seria implementado aqui
-              </p>
-            </div>
-          </div>
+          <ProductivityChart data={reports} />
         </div>
       </div>
     </div>

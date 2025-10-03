@@ -132,7 +132,7 @@ namespace TaskManagementAPI.Services
         public async Task<bool> CanDeleteProjectAsync(int projectId)
         {
             var hasPendingTasks = await _context.Tasks
-                .AnyAsync(t => t.ProjectId == projectId && t.Status != Models.TaskStatus.Completed);
+                .AnyAsync(t => t.ProjectId == projectId && t.Status != "Completed");
                 
             return !hasPendingTasks;
         }
