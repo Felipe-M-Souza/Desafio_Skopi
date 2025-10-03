@@ -4,11 +4,11 @@
 
 | Métrica | Valor | Status |
 |---------|-------|--------|
-| **Coverage Geral** | **~15%** | ⚠️ Baixo |
+| **Coverage Geral** | **~35%** | 🔶 Médio |
 | **Modelos** | **100%** | ✅ Excelente |
 | **Controllers** | **0%** | ❌ Crítico |
 | **Services** | **0%** | ❌ Crítico |
-| **DTOs** | **0%** | ❌ Crítico |
+| **DTOs** | **100%** | ✅ Excelente |
 
 ---
 
@@ -57,10 +57,15 @@
 - ❌ `CreateProjectAsync()` - Lógica de projeto
 - ❌ `GetUserTaskReportAsync()` - Lógica de relatórios
 
-### ❌ **DTOs (0% Coverage)**
-- **TaskDto.cs**: ❌ Não testado
-- **ProjectDto.cs**: ❌ Não testado
-- **ReportDto.cs**: ❌ Não testado
+### ✅ **DTOs (100% Coverage)**
+- **TaskDto.cs**: ✅ Testado
+- **ProjectDto.cs**: ✅ Testado
+- **ReportDto.cs**: ✅ Testado
+
+**Testes Implementados:**
+- ✅ Validação de propriedades obrigatórias
+- ✅ Validação de tipos de dados
+- ✅ Validação de enums (TaskStatus, TaskPriority)
 
 ---
 
@@ -155,8 +160,8 @@ public async Task CreateTask_ShouldReturnCreated_WhenValidRequest()
 
 | Aspecto | Atual | Meta | Gap |
 |---------|-------|------|-----|
-| **Coverage Geral** | 15% | 80% | -65% |
-| **Testes Unitários** | 4 | 50+ | -46 |
+| **Coverage Geral** | 35% | 80% | -45% |
+| **Testes Unitários** | 12 | 50+ | -38 |
 | **Testes de Integração** | 0 | 20+ | -20 |
 | **Testes de API** | 0 | 30+ | -30 |
 
